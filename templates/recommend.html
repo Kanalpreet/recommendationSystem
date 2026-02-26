@@ -2,74 +2,110 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Recommendation</title>
+    <title>BookSphere | Smart Recommendations</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap Grid -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 
     <style>
+
         body {
             font-family: 'DM Sans', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
-            color: #222;
+            background: linear-gradient(135deg, #f8fbff, #eef3ff);
+            color: #1c1c1c;
+            overflow-x: hidden;
+        }
+
+        /* Background Glow */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        body::before {
+            background: #ff6a00;
+            top: -120px;
+            left: -120px;
+        }
+
+        body::after {
+            background: #6a5cff;
+            bottom: -120px;
+            right: -120px;
         }
 
         /* NAVBAR */
         .navbar {
-            background: white;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(10px);
             border: none;
-            padding: 18px 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 18px 60px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
         }
 
         .navbar-brand {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 22px;
-            color: #ee0979 !important;
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .nav > li > a {
-            color: #333 !important;
             font-weight: 500;
+            color: #333 !important;
+            transition: 0.3s;
         }
 
         .nav > li > a:hover {
-            background: transparent;
             color: #ee0979 !important;
+            background: transparent;
         }
 
         /* HERO */
         .hero {
             text-align: center;
-            padding: 60px 0 30px 0;
+            padding: 80px 0 40px 0;
         }
 
         .hero h1 {
-            font-size: 40px;
-            font-weight: 700;
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6a00, #6a5cff);
+            background-clip:text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero p {
+            font-size: 18px;
             color: #666;
-            font-size: 16px;
         }
 
-        /* SEARCH BOX */
+        /* SEARCH */
         .search-box {
             max-width: 600px;
-            margin: 30px auto;
+            margin: 40px auto;
         }
 
         .search-box input {
-            height: 50px;
-            border-radius: 12px;
+            height: 55px;
+            border-radius: 14px;
             border: 1px solid #ddd;
-            padding: 10px 15px;
-            font-size: 15px;
-            box-shadow: none;
+            padding: 12px 18px;
+            font-size: 16px;
+            transition: 0.3s;
         }
 
         .search-box input:focus {
@@ -78,58 +114,70 @@
         }
 
         .search-btn {
-            margin-top: 15px;
+            margin-top: 18px;
             background: linear-gradient(90deg, #ff6a00, #ee0979);
             border: none;
             color: white;
-            padding: 10px 30px;
-            border-radius: 10px;
+            padding: 12px 35px;
+            border-radius: 14px;
             font-weight: 600;
-            transition: 0.3s;
+            transition: 0.3s ease;
+            box-shadow: 0 8px 25px rgba(238,9,121,0.25);
         }
 
         .search-btn:hover {
-            opacity: 0.9;
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(238,9,121,0.35);
         }
 
         /* CARD */
         .book-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
-            margin-bottom: 35px;
-            transition: 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+            transition: all 0.35s ease;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+            border: 2px solid transparent;
         }
 
         .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+            border-image: linear-gradient(135deg, #ff6a00, #6a5cff) 1;
         }
 
         .book-card img {
             width: 100%;
             height: 260px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .book-card:hover img {
+            transform: scale(1.05);
         }
 
         .book-content {
-            padding: 18px;
+            padding: 22px;
         }
 
         .book-title {
             font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
         .book-author {
             font-size: 14px;
-            color: #888;
+            color: #777;
         }
 
-        .container {
-            margin-top: 20px;
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 30px;
+            }
         }
 
     </style>
@@ -152,7 +200,7 @@
 
     <div class="hero">
         <h1>Find Similar Books</h1>
-        <p>Enter a book name to discover recommendations</p>
+        <p>Type a book name and discover smart recommendations</p>
     </div>
 
     <div class="search-box text-center">
@@ -167,7 +215,7 @@
             {% for i in data %}
             <div class="col-md-3 col-sm-6">
                 <div class="book-card">
-                    <img src="{{ i[2] }}" alt="Book Cover">
+                    <img src="{{ i[2] if i[2] else 'https://via.placeholder.com/300x260?text=No+Image' }}" alt="Book Cover">
                     <div class="book-content">
                         <div class="book-title">{{ i[0] }}</div>
                         <div class="book-author">by {{ i[1] }}</div>

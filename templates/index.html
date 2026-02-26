@@ -2,100 +2,146 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Book Recommendation System</title>
+    <title>BookSphere | Smart Book Recommendations</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 
     <!-- Bootstrap Grid -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
 
     <style>
+
         body {
             font-family: 'DM Sans', sans-serif;
-            background: linear-gradient(135deg, #f5f7fa, #e4ecf7);
-            color: #222;
+            background: linear-gradient(135deg, #f8fbff, #eef3ff);
+            color: #1c1c1c;
+            overflow-x: hidden;
+        }
+
+        /* Background glow effects */
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            filter: blur(140px);
+            z-index: -1;
+            opacity: 0.25;
+        }
+
+        body::before {
+            background: #ff6a00;
+            top: -120px;
+            left: -120px;
+        }
+
+        body::after {
+            background: #6a5cff;
+            bottom: -120px;
+            right: -120px;
         }
 
         /* NAVBAR */
         .navbar {
-            background: white;
+            background: rgba(255,255,255,0.75);
+            backdrop-filter: blur(10px);
             border: none;
-            padding: 18px 50px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 18px 60px;
+            box-shadow: 0 4px 25px rgba(0,0,0,0.05);
         }
 
         .navbar-brand {
-            font-weight: 700;
+            font-weight: 800;
             font-size: 22px;
             background: linear-gradient(90deg, #ff6a00, #ee0979);
-            background-clip:text;
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .nav > li > a {
-            color: #333 !important;
             font-weight: 500;
+            color: #333 !important;
+            transition: 0.3s;
         }
 
         .nav > li > a:hover {
-            background: transparent;
             color: #ee0979 !important;
+            background: transparent;
         }
 
         /* HERO */
         .hero {
             text-align: center;
-            padding: 60px 0 30px 0;
+            padding: 80px 0 50px 0;
         }
 
         .hero h1 {
-            font-size: 42px;
-            font-weight: 700;
-            margin-bottom: 10px;
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(90deg, #ff6a00, #6a5cff);
+            background-clip:text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: fadeIn 1s ease;
         }
 
         .hero p {
-            font-size: 17px;
+            font-size: 18px;
             color: #666;
+            margin-top: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px);}
+            to { opacity: 1; transform: translateY(0);}
         }
 
         /* CARD */
         .book-card {
             background: white;
-            border-radius: 16px;
+            border-radius: 18px;
             overflow: hidden;
-            margin-bottom: 35px;
-            transition: 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+            margin-bottom: 40px;
+            transition: all 0.35s ease;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.06);
+            border: 2px solid transparent;
         }
 
         .book-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+            transform: translateY(-10px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.12);
+            border-image: linear-gradient(135deg, #ff6a00, #6a5cff) 1;
         }
 
         .book-card img {
             width: 100%;
             height: 260px;
             object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .book-card:hover img {
+            transform: scale(1.05);
         }
 
         .book-content {
-            padding: 18px;
+            padding: 22px;
         }
 
         .book-title {
             font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 5px;
+            font-weight: 700;
+            margin-bottom: 6px;
         }
 
         .book-author {
             font-size: 14px;
-            color: #888;
-            margin-bottom: 10px;
+            color: #777;
+            margin-bottom: 12px;
         }
 
         .meta {
@@ -105,19 +151,29 @@
 
         .rating-badge {
             display: inline-block;
-            padding: 4px 10px;
-            border-radius: 8px;
+            padding: 6px 14px;
+            border-radius: 12px;
             font-size: 12px;
             font-weight: 600;
             background: linear-gradient(90deg, #ff6a00, #ee0979);
             color: white;
-            margin-top: 6px;
+            margin-top: 8px;
+            box-shadow: 0 6px 18px rgba(238,9,121,0.3);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 70px;
+            text-align: center;
+            padding: 30px;
+            color: #777;
+            font-size: 14px;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 28px;
+                font-size: 30px;
             }
         }
 
@@ -132,7 +188,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="/">Home</a></li>
             <li><a href="/recommend">Recommend</a></li>
-            <li><a href="#">Contact</a></li>
+           
         </ul>
     </div>
 </nav>
@@ -140,27 +196,33 @@
 <div class="container">
 
     <div class="hero">
-        <h1>Explore the Most Loved Books</h1>
-        <p>Smart recommendations powered by collaborative filtering</p>
+        <h1>Discover Books You’ll Love</h1>
+        <p>collaborative filtering recommendations</p>
     </div>
 
     <div class="row">
-        {% for i in range(book_name|length) %}
-        <div class="col-md-3 col-sm-6">
-            <div class="book-card">
-                <img src="{{ image[i] }}" alt="Book Cover">
-                <div class="book-content">
-                    <div class="book-title">{{ book_name[i] }}</div>
-                    <div class="book-author">by {{ author[i] }}</div>
-                    <div class="meta">Votes: {{ votes[i] }}</div>
-                    <div class="rating-badge">⭐ {{ ratings[i] }}</div>
-                </div>
+{% for i in range(book_name|length) %}
+{% if book_name[i] %}
+    <div class="col-md-3 col-sm-6">
+        <div class="book-card">
+            <img src="{{ image[i] if image[i] else 'https://i.pinimg.com/1200x/60/eb/b7/60ebb77a601df24f9bd1c3dc8de84864.jpg' }}">
+            <div class="book-content">
+                <div class="book-title">{{ book_name[i] }}</div>
+                <div class="book-author">by {{ author[i] }}</div>
+                <div class="meta">Votes: {{ votes[i] }}</div>
+                <div class="rating-badge">⭐ {{ ratings[i] }}</div>
             </div>
         </div>
-        {% endfor %}
     </div>
+{% endif %}
+{% endfor %}
+</div>
 
 </div>
+
+<footer>
+    © 2026 BookSphere • Built with Flask & Collaborative Filtering
+</footer>
 
 </body>
 </html>
