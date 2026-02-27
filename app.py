@@ -41,7 +41,7 @@ def index():
         author=list(popular_df["Book-Author"].values),
         image=list(popular_df["Image-URL-M"].values),
         votes=list(popular_df["num_ratings"].values),
-        ratings=[round(x, 2) for x in popular_df["avg_ratings"].values],
+        ratings=list(popular_df["avg_ratings"].values),
     )
 
 
