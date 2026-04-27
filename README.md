@@ -91,7 +91,6 @@ Using collaborative filtering and cosine similarity, the system identifies patte
 ## 👩‍💻 Author
 
 **Kanalpreet Kaur**  
-AI/ML Engineer  
 
 ---
 
